@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/06 18:12:04 by mpivet-p          #+#    #+#             */
-/*   Updated: 2018/11/17 13:14:59 by mpivet-p         ###   ########.fr       */
+/*   Created: 2019/05/05 17:17:10 by mpivet-p          #+#    #+#             */
+/*   Updated: 2019/05/05 17:17:25 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		ft_atoi(const char *str)
 	result = 0;
 	sign = 1;
 	while ((str[i] == '\t' || str[i] == '\n' || str[i] == '\r' || str[i] == '\v'
-			|| str[i] == ' ' || str[i] == '\f') && str[i])
+				|| str[i] == ' ' || str[i] == '\f') && str[i])
 		i++;
 	if ((str[i] == '+' || str[i] == '-') && str[i])
 		i++;

@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 16:03:59 by mpivet-p          #+#    #+#             */
-/*   Updated: 2019/05/04 19:42:44 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2019/05/05 16:56:01 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,25 @@ t_select	*newlink(char *name, t_select *head)
 	newlink->status = 0xFF00;
 	if (!(newlink->name = ft_strdup(name)))
 		return (NULL);
+	return (head);
+}
+
+t_select	*remove_list(t_select *head)
+{
+	t_select	*ptr;
+
+	ptr = head;
+	while (ptr != NULL && !(ptr->status & CURSOR))
+		ptr = ptr->next;
+	if (ptr != NULL)
+	{
+		if (ptr->prev != NULL)
+			ptr->prev->next = ptr->next;
+		if (ptr->next != NULL)
+			ptr->next->prev = ptr->prev;
+		ft_strdel(&(ptr->name));
+		free(ptr);
+	}
 	return (head);
 }
 

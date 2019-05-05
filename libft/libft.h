@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 18:44:21 by mpivet-p          #+#    #+#             */
-/*   Updated: 2019/05/02 19:08:41 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2019/05/05 17:34:17 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ char			*ft_strtrim(char const *s);
 int				ft_atoi(const char *str);
 int				ft_base_size(long long nb, int base);
 int				ft_isalnum(int c);
+int				ft_putscap(int c);
 int				ft_isalpha(int c);
 int				ft_isascii(int c);
 int				ft_isdigit(int c);

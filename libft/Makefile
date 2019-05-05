@@ -13,7 +13,7 @@ SRCS = ft_atoi.c ft_base_size.c ft_bzero.c ft_isalnum.c \
 	ft_strrchr.c ft_strsplit.c ft_strstr.c ft_strsub.c ft_strtrim.c \
 	ft_tolower.c ft_toupper.c ft_sqrt.c get_next_line.c print_bits.c \
 	get_options.c ft_cat_buffer.c ft_sort_params.c ft_splitwhitespaces.c \
-	ft_strreplace.c ft_strbchr.c
+	ft_strreplace.c ft_strbchr.c ft_putscap.c
 OBJ= $(SRCS:.c=.o)
 INCLUDES = ./ 
 PARAMS = -Wall -Wextra -Werror

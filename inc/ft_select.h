@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:58:25 by mpivet-p          #+#    #+#             */
-/*   Updated: 2019/05/04 18:53:51 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2019/05/05 23:09:26 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,14 @@ typedef struct			s_select
 	struct	s_select	*prev;
 }						t_select;
 
+void					print_result(t_select *head);
 t_select				*del_list(t_select *head);
 t_select				*create_list(char **argv);
 void					disp_list(t_select *ptr, int width);
+int						term_init(void);
+int						get_term_size(void);
+int						init_keyboard(struct termios *init,
+						struct termios *save);
+void					sigwinch_handler(int signum);
 
 #endif

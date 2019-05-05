@@ -7,7 +7,7 @@ SRC_PATH= src/
 OBJ_PATH= obj/
 
 INC_NAME= ft_select.h
-SRC_NAME= main.c list.c display.c
+SRC_NAME= main.c list.c display.c term_init.c signals.c
 OBJ_NAME= $(SRC_NAME:.c=.o)
 
 INC= -I inc/ -I libft/

@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar.c                                       :+:      :+:    :+:   */
+/*   signals.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/08 18:20:28 by mpivet-p          #+#    #+#             */
-/*   Updated: 2019/05/05 17:16:20 by mpivet-p         ###   ########.fr       */
+/*   Created: 2019/05/05 22:09:46 by mpivet-p          #+#    #+#             */
+/*   Updated: 2019/05/05 23:16:33 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_select.h"
 
-int		ft_putchar(int c)
+extern t_select	*global_head;
+
+void	sigwinch_handler(int signum)
 {
-	if (write(1, &c, 1) == -1)
-		return (-1);
-	return ((int)c);
+	(void)signum;
+	signal(SIGWINCH, sigwinch_handler);
+	disp_list(global_head, get_term_size() & 0xFFFF);
 }
