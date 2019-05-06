@@ -42,14 +42,19 @@ int		get_keystrokes(char *buffer, t_select *ptr)
 		return (-1);
 	if (ft_strcmp("\n", buffer) == 0)
 		return (1);
-	if (ft_strcmp("\x1B[A", buffer) == 0)
-		ft_putstr("up\n\r");
+	if (ft_strcmp(" ", buffer) == 0)
+		list_select(ptr);
+	else if (buffer[0] == 127 && buffer[1] == 0)
+		ft_putstr("del\n");
+	else if (ft_strcmp("\x1B[A", buffer) == 0)
+		ft_putstr("up\n");
 	else if (ft_strcmp("\x1b[B", buffer) == 0)
-		ft_putstr("down\n\r");
+		ft_putstr("down\n");
 	else if (ft_strcmp("\x1b[D", buffer) == 0)
-		ft_putstr("left\n\r");
+		move_left(ptr);
 	else if (ft_strcmp("\x1b[C", buffer) == 0)
-		ft_putstr("right\n\r");
+		move_right(ptr);
+//		ft_putstr("right\n");
 	else if (ptr)
 		debug_key(buffer);
 	return (0);
@@ -69,6 +74,7 @@ int		read_loop(t_select *head)
 		key = get_keystrokes(buffer, head);
 		if (key == -1 || key == 1)
 			return (key);
+			disp_list(head, get_term_size() & 0xFFFF);
 		ft_strclr(buffer);
 	}
 	return (0);

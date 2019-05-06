@@ -23,7 +23,7 @@ t_select	*newlink(char *name, t_select *head)
 	head->next = newlink;
 	newlink->prev = head; 
 	newlink->next = NULL;
-	newlink->status = 0xFF00;
+	newlink->status = 0;
 	if (!(newlink->name = ft_strdup(name)))
 		return (NULL);
 	return (head);
@@ -47,6 +47,56 @@ t_select	*remove_list(t_select *head)
 	}
 	return (head);
 }
+
+void	move_right(t_select *ptr)
+{
+	while (ptr != NULL && !(ptr->status & CURSOR))
+		ptr = ptr->next;
+	if (ptr != NULL && ptr->status & CURSOR)
+	{
+		ptr->status ^= CURSOR;
+		if (ptr->next != NULL)
+			ptr->next->status |= CURSOR;
+		else
+		{
+			while (ptr != NULL && ptr->prev != NULL)
+				ptr = ptr->prev;
+			ptr->status |= CURSOR;
+		}
+	}
+}
+
+void	move_left(t_select *ptr)
+{
+	while (ptr != NULL && !(ptr->status & CURSOR))
+		ptr = ptr->prev;
+	if (ptr != NULL && ptr->status & CURSOR)
+	{
+		ptr->status ^= CURSOR;
+		if (ptr->prev != NULL)
+			ptr->prev->status |= CURSOR;
+		else
+		{
+			while (ptr != NULL && ptr->next != NULL)
+				ptr = ptr->next;
+			ptr->status |= CURSOR;
+		}
+	}
+}
+
+void	list_select(t_select *ptr)
+{
+	t_select	*head;
+
+	head = ptr;
+	while (ptr && !(ptr->status & CURSOR))
+		ptr = ptr->next;
+	if (ptr->status & CURSOR)
+	{
+		ptr->status ^= SELECTED;
+		move_right(head);
+	}
+}	
 
 t_select	*del_list(t_select *head)
 {
@@ -74,7 +124,7 @@ t_select	*create_list(char **argv)
 	head->prev = NULL;
 	if (!(head->name = ft_strdup(argv[1])))
 		return (del_list(head));
-	head->status = 0xFFFF;
+	head->status = CURSOR;
 	while (argv[i])
 	{
 		if (newlink(argv[i], head) == NULL)
