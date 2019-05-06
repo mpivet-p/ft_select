@@ -18,14 +18,14 @@ void	disp_link(t_select *ptr, int maxlen, int spaces)
 
 	i = maxlen - ft_strlen(ptr->name);
 	if (tgetstr("us", NULL) != NULL && ptr->status & CURSOR)
-		tputs(tgetstr("us", NULL), 1, ft_putscap);
+		tputs(tgetstr("us", NULL), 2, ft_putscap);
 	if (tgetstr("mr", NULL) != NULL && ptr->status & SELECTED)
-		tputs(tgetstr("mr", NULL), 1, ft_putscap);
-	ft_putstr(ptr->name);
+		tputs(tgetstr("mr", NULL), 2, ft_putscap);
+	ft_putstr_fd(ptr->name, 2);
 	if (ptr->status & CURSOR || ptr->status & SELECTED)
-		tputs(tgetstr("me", NULL), 1, ft_putscap);
+		tputs(tgetstr("me", NULL), 2, ft_putscap);
 	while (spaces != 0 && i--)
-		ft_putchar(' ');
+		ft_putchar_fd(' ', 2);
 
 }
 
@@ -82,11 +82,11 @@ void	disp_list(t_select *ptr, int width)
 			disp_link(ptr, maxlen, i + 1 - cols);
 		if (++i == cols || ptr->next == NULL)
 		{
-			ft_putchar(10);
+			ft_putchar_fd(10, 2);
 			i = 0;
 		}
 		else
-			ft_putchar(' ');
+			ft_putchar_fd(' ', 2);
 		ptr = ptr->next;
 	}
 }
