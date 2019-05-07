@@ -35,6 +35,7 @@ typedef struct			s_select
 	struct	s_select	*prev;
 }						t_select;
 
+t_select				*remove_list(t_select *head);
 void					list_select(t_select *ptr);
 void					move_right(t_select *ptr);
 void					move_left(t_select *ptr);

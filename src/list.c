@@ -36,6 +36,7 @@ t_select	*remove_list(t_select *head)
 	ptr = head;
 	while (ptr != NULL && !(ptr->status & CURSOR))
 		ptr = ptr->next;
+	move_right(head);
 	if (ptr != NULL)
 	{
 		if (ptr->prev != NULL)
@@ -69,7 +70,7 @@ void	move_right(t_select *ptr)
 void	move_left(t_select *ptr)
 {
 	while (ptr != NULL && !(ptr->status & CURSOR))
-		ptr = ptr->prev;
+		ptr = ptr->next;
 	if (ptr != NULL && ptr->status & CURSOR)
 	{
 		ptr->status ^= CURSOR;

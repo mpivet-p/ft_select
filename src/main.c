@@ -44,8 +44,8 @@ int		get_keystrokes(char *buffer, t_select *ptr)
 		return (1);
 	if (ft_strcmp(" ", buffer) == 0)
 		list_select(ptr);
-//	else if (buffer[0] == 127 && buffer[1] == 0)
-//		ft_putstr("del\n");
+	else if (buffer[0] == 127 && buffer[1] == 0)
+		ptr = remove_list(ptr);
 //	else if (ft_strcmp("\x1B[A", buffer) == 0)
 //		ft_putstr("up\n");
 //	else if (ft_strcmp("\x1b[B", buffer) == 0)
