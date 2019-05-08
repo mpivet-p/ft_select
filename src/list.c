@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 16:03:59 by mpivet-p          #+#    #+#             */
-/*   Updated: 2019/05/05 16:56:01 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2019/05/08 16:44:19 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ t_select	*remove_list(t_select *head)
 	while (ptr != NULL && !(ptr->status & CURSOR))
 		ptr = ptr->next;
 	move_right(head);
+	if (ptr == head)
+		head = head->next;
 	if (ptr != NULL)
 	{
 		if (ptr->prev != NULL)
@@ -47,42 +49,6 @@ t_select	*remove_list(t_select *head)
 		free(ptr);
 	}
 	return (head);
-}
-
-void	move_right(t_select *ptr)
-{
-	while (ptr != NULL && !(ptr->status & CURSOR))
-		ptr = ptr->next;
-	if (ptr != NULL && ptr->status & CURSOR)
-	{
-		ptr->status ^= CURSOR;
-		if (ptr->next != NULL)
-			ptr->next->status |= CURSOR;
-		else
-		{
-			while (ptr != NULL && ptr->prev != NULL)
-				ptr = ptr->prev;
-			ptr->status |= CURSOR;
-		}
-	}
-}
-
-void	move_left(t_select *ptr)
-{
-	while (ptr != NULL && !(ptr->status & CURSOR))
-		ptr = ptr->next;
-	if (ptr != NULL && ptr->status & CURSOR)
-	{
-		ptr->status ^= CURSOR;
-		if (ptr->prev != NULL)
-			ptr->prev->status |= CURSOR;
-		else
-		{
-			while (ptr != NULL && ptr->next != NULL)
-				ptr = ptr->next;
-			ptr->status |= CURSOR;
-		}
-	}
 }
 
 void	list_select(t_select *ptr)

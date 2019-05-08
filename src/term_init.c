@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 19:35:58 by mpivet-p          #+#    #+#             */
-/*   Updated: 2019/05/05 21:56:48 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2019/05/08 20:17:04 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int		term_init(void)
 		ft_putstr_fd("Terminal type is not defined.\n", 2);
 		return (-1);
 	}
+	signal(SIGINT, sigint_handler);
 	return (0);
 }
 

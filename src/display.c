@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 16:34:46 by mpivet-p          #+#    #+#             */
-/*   Updated: 2019/05/06 00:09:39 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2019/05/08 16:42:54 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	print_result(t_select *head)
 		head = head->next;
 	}
 	if (i != 0)
-		ft_putchar(10);
+		ft_putchar('\n');
 }
 
 int		get_maxlen(t_select *ptr)
@@ -64,14 +64,12 @@ int		get_maxlen(t_select *ptr)
 	return (size);
 }
 
-void	disp_list(t_select *ptr, int width)
+void	disp_list(t_select *ptr, int width, int maxlen)
 {
 	int		cols;
-	int		maxlen;
 	int		i;
 
 	i = 0;
-	maxlen = get_maxlen(ptr);
 	cols = (width + 1) / (maxlen + 1);
 	tputs(tgetstr("cl", NULL), 2, ft_putscap);
 	while (ptr != NULL)
@@ -82,7 +80,7 @@ void	disp_list(t_select *ptr, int width)
 			disp_link(ptr, maxlen, i + 1 - cols);
 		if (++i == cols || ptr->next == NULL)
 		{
-			ft_putchar_fd(10, 2);
+			ft_putchar_fd('\n', 2);
 			i = 0;
 		}
 		else
