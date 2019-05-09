@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:59:38 by mpivet-p          #+#    #+#             */
-/*   Updated: 2019/05/08 20:19:38 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2019/05/09 17:23:59 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,10 @@ int		get_keystrokes(char *buffer, t_select **head, int *maxlen)
 	t_select *ptr;
 
 	ptr = *head;
-	if (ft_strcmp("\x1b", buffer) == 0 || ptr == NULL)
-		return (-1);
-	if (ft_strcmp("\n", buffer) == 0)
-		return (1);
 	if (ft_strcmp(" ", buffer) == 0)
 		list_select(ptr);
-	else if (buffer[0] == 127 && buffer[1] == 0)
+	else if ((buffer[0] == 127 && buffer[1] == 0)
+			|| ft_strcmp("\x1B[3~", buffer) == 0)
 	{
 		*head = remove_list(ptr);
 		global_head = *head;
@@ -56,7 +53,6 @@ int		get_keystrokes(char *buffer, t_select **head, int *maxlen)
 int		read_loop(t_select **head)
 {
 	char	buffer[4 + 1];
-	int		key;
 	int		maxlen;
 	int		ret;
 
@@ -66,10 +62,11 @@ int		read_loop(t_select **head)
 	while ((ret = read(0, buffer, 4)) && *head != NULL)
 	{
 		buffer[ret] = 0;
-		key = get_keystrokes(buffer, head, &maxlen);
-		if (key == -1 || key == 1)
-			return (key);
-		if (key == 0)
+		if (ft_strcmp("\x1b", buffer) == 0)
+			return (-1);
+		if (ft_strcmp("\n", buffer) == 0)
+			return (1);
+		if (get_keystrokes(buffer, head, &maxlen) == 0)
 			disp_list(*head, get_term_size() & 0xFFFF, maxlen);
 		ft_strclr(buffer);
 	}
@@ -81,28 +78,27 @@ int		main(int argc, char **argv)
 	int				ret_term;
 	int				ret;
 	t_select		*head;
-	struct termios	init;
 
 	ret_term = term_init();
 	ret = 0;
-	if (init_keyboard(&init, &save) == 0)
+	if (argc < 2)
+		ft_putstr_fd("usage: ft_select [arg1] [arg2] ...", 2);
+	(void)argv;
+	if (init_keyboard(&save) == 0)
 	{
-		if (argc < 2)
-			ft_putstr_fd("usage: ft_select [arg1] [arg2] ...", 2);
-		else if (ret_term == 0)
-		{
-			tputs(tgetstr("vi", NULL), 1, ft_putscap);
-			head = create_list(argv);
-			global_head = head;
-			sigwinch_handler(SIGWINCH);
-			ret = read_loop(&head);
-			tputs(tgetstr("cl", NULL), 1, ft_putscap);
-			tputs(tgetstr("ve", NULL), 1, ft_putscap);
-			if (ret == 1)
-				print_result(head);
-			head = del_list(head);
-		}
+		tputs(tgetstr("vi", NULL), 1, ft_putscap);
+		ft_putstr_fd("\033[?1049h\033[H", 2);
+		head = create_list(argv);
+		global_head = head;
+		sigwinch_handler(SIGWINCH);
+		ret = read_loop(&head);
+		tputs(tgetstr("cl", NULL), 1, ft_putscap);
+		tputs(tgetstr("ve", NULL), 1, ft_putscap);
+		if (ret == 1)
+			print_result(head);
+		head = del_list(head);
+		tcsetattr(0, TCSANOW, &save);
+		ft_putstr_fd("\033[?1049l", 2);
 	}
-	tcsetattr(0, TCSANOW, &save);
 	return (0);
 }

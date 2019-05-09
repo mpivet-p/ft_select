@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 16:03:59 by mpivet-p          #+#    #+#             */
-/*   Updated: 2019/05/08 16:44:19 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2019/05/09 17:45:13 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ t_select	*create_list(char **argv)
 	head->status = CURSOR;
 	while (argv[i])
 	{
-		if (newlink(argv[i], head) == NULL)
+		if (strlen(argv[i]) != 0 && newlink(argv[i], head) == NULL)
 			return (del_list(head));
 		i++;
 	}
