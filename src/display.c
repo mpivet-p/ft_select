@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 16:34:46 by mpivet-p          #+#    #+#             */
-/*   Updated: 2019/05/08 16:42:54 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2019/05/10 19:45:04 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	disp_link(t_select *ptr, int maxlen, int spaces)
 		tputs(tgetstr("me", NULL), 2, ft_putscap);
 	while (spaces != 0 && i--)
 		ft_putchar_fd(' ', 2);
-
 }
 
 void	print_result(t_select *head)
@@ -72,19 +71,22 @@ void	disp_list(t_select *ptr, int width, int maxlen)
 	i = 0;
 	cols = (width + 1) / (maxlen + 1);
 	tputs(tgetstr("cl", NULL), 2, ft_putscap);
-	while (ptr != NULL)
-	{
-		if (ptr->next == NULL || i + 1 == cols)
-			disp_link(ptr, maxlen, 0);
-		else
-			disp_link(ptr, maxlen, i + 1 - cols);
-		if (++i == cols || ptr->next == NULL)
+	if (enough_space(maxlen) != 0)
+		ft_putstr_fd("Not enough space ! Please resize the window\n", 2);
+	else
+		while (ptr != NULL)
 		{
-			ft_putchar_fd('\n', 2);
-			i = 0;
+			if (ptr->next == NULL || i + 1 == cols)
+				disp_link(ptr, maxlen, 0);
+			else
+				disp_link(ptr, maxlen, i + 1 - cols);
+			if (++i == cols || ptr->next == NULL)
+			{
+				ft_putchar_fd('\n', 2);
+				i = 0;
+			}
+			else
+				ft_putchar_fd(' ', 2);
+			ptr = ptr->next;
 		}
-		else
-			ft_putchar_fd(' ', 2);
-		ptr = ptr->next;
-	}
 }

@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 19:35:58 by mpivet-p          #+#    #+#             */
-/*   Updated: 2019/05/09 17:45:34 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2019/05/10 22:36:54 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int		term_init(void)
 {
-	char *termtype;
-	int ret;
+	char	*termtype;
+	int		ret;
 
 	ret = 0;
 	if ((termtype = getenv("TERM")) == NULL)
