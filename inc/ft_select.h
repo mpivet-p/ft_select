@@ -6,22 +6,16 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:58:25 by mpivet-p          #+#    #+#             */
-/*   Updated: 2019/05/10 19:32:46 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2019/05/11 15:45:32 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_SELECT_H
 # define FT_SELECT_H
 # include "libft.h"
-# include <stdio.h>
-# include <stdlib.h>
-# include <curses.h>
-# include <term.h>
-# include <unistd.h>
 # include <sys/ioctl.h>
 # include <termcap.h>
 # include <termios.h>
-# include <fcntl.h>
 # include <signal.h>
 # define CURSOR 0xFF00
 # define SELECTED 0xFF

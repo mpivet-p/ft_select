@@ -1,5 +1,13 @@
-NAME = libft.a
-SRCS = ft_atoi.c ft_base_size.c ft_bzero.c ft_isalnum.c \
+NAME= libft.a
+CC= gcc
+PARAMS= -Wall -Wextra -Werror -g
+
+INC_PATH= inc/
+SRC_PATH= src/
+OBJ_PATH= obj/
+
+INC_NAME= libft.h get_next_line.h
+SRC_NAME = ft_atoi.c ft_base_size.c ft_bzero.c ft_isalnum.c \
 	ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_itoa.c ft_lstadd.c \
 	ft_lstdel.c ft_lstdelone.c ft_lstiter.c ft_lstlen.c ft_lstmap.c ft_lstnew.c \
 	ft_memalloc.c ft_memccpy.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memdel.c \
@@ -14,32 +22,35 @@ SRCS = ft_atoi.c ft_base_size.c ft_bzero.c ft_isalnum.c \
 	ft_tolower.c ft_toupper.c ft_sqrt.c get_next_line.c print_bits.c \
 	get_options.c ft_cat_buffer.c ft_sort_params.c ft_splitwhitespaces.c \
 	ft_strreplace.c ft_strbchr.c ft_putscap.c
-OBJ= $(SRCS:.c=.o)
-INCLUDES = ./ 
-PARAMS = -Wall -Wextra -Werror
+OBJ_NAME= $(SRC_NAME:.c=.o)
+
+INC= -I inc/
+SRC= $(addprefix $(SRC_PATH), $(SRC_NAME))
+OBJ= $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
 GRN= \033[92m
 BLU= \033[94m
 DEF= \033[0m
 
+.PHONY: all clean fclean re
+
 all: $(NAME)
 
-$(NAME):
-	@gcc $(PARAMS) -I$(INCLUDES) -c $(SRCS)
+$(NAME): $(OBJ)
 	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
 	@echo "$(BLU)[libft]$(DEF) : Compilation                 $(GRN)[OK]$(DEF)"
 
+$(OBJ_PATH)%.o: $(SRC_PATH)%.c
+	@mkdir $(OBJ_PATH) 2> /dev/null || true
+	@$(CC) $(PARAMS) $(INC) -o $@ -c $<
+
 clean:
-	@rm -f *.o
+	@rm -rf $(OBJ_PATH)
 	@echo "$(BLU)[libft]$(DEF) : Cleaning                    $(GRN)[OK]$(DEF)"
 
 fclean: clean
-	@rm -f $(NAME)
-	@echo "$(BLU)[libft]$(DEF) : Full Cleaning               $(GRN)[OK]$(DEF)"
-
-execlean:
-	@rm -f $(NAME)
+	@rm -rf $(NAME)
 	@echo "$(BLU)[libft]$(DEF) : Full Cleaning               $(GRN)[OK]$(DEF)"
 
 re: fclean all

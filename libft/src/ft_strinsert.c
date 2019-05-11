@@ -6,12 +6,11 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/02 15:58:19 by mpivet-p          #+#    #+#             */
-/*   Updated: 2018/12/03 16:10:28 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2019/05/11 15:39:44 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
 char	*ft_strinsert(char *str, char *insertion, size_t location)
 {

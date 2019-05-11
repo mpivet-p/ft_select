@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 19:35:58 by mpivet-p          #+#    #+#             */
-/*   Updated: 2019/05/10 22:36:54 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2019/05/11 16:03:36 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,15 @@ int		term_init(void)
 		return (-1);
 	}
 	ret = tgetent(NULL, termtype);
-	if (ret == -1)
-		ft_putstr_fd("Could not access the termcap database.\n", 2);
 	if (ret == 0)
 		ft_putstr_fd("Terminal type is not defined.\n", 2);
+	if (ret == -1 || !(tgetstr("cl", NULL)) || !(tgetstr("vi", NULL))
+			|| !(tgetstr("us", NULL)) || !(tgetstr("me", NULL))
+			|| !(tgetstr("mr", NULL)))
+	{
+		ft_putstr_fd("Terminal not supported.\n", 2);
+		ret = -1;
+	}
 	if (ret == -1 || ret == 0)
 		return (-1);
 	signal(SIGINT, sigint_handler);

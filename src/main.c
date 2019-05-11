@@ -6,14 +6,14 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:59:38 by mpivet-p          #+#    #+#             */
-/*   Updated: 2019/05/10 22:33:56 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2019/05/11 15:49:34 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
 t_select		*g_head;
-struct termios	save;
+struct termios	g_save;
 
 int		get_term_size(void)
 {
@@ -105,7 +105,7 @@ int		main(int argc, char **argv)
 	ret = 0;
 	if (argc < 2)
 		ft_putstr_fd("usage: ft_select [arg1] [arg2] ...", 2);
-	if (ret_term != 0 || init_keyboard(&save) != 0
+	if (ret_term != 0 || init_keyboard(&g_save) != 0
 			|| !(head = create_list(argv)))
 		return (0);
 	tputs(tgetstr("vi", NULL), 1, ft_putscap);
@@ -118,7 +118,7 @@ int		main(int argc, char **argv)
 	if (ret == 1)
 		print_result(head);
 	head = del_list(head);
-	tcsetattr(0, TCSANOW, &save);
+	tcsetattr(0, TCSANOW, &g_save);
 	ft_putstr_fd("\033[?1049l", 2);
 	return (0);
 }

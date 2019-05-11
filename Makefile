@@ -10,14 +10,13 @@ INC_NAME= ft_select.h
 SRC_NAME= main.c list.c display.c term_init.c signals.c move.c
 OBJ_NAME= $(SRC_NAME:.c=.o)
 
-INC= -I inc/ -I libft/
+INC= -I inc/ -I libft/inc/
 SRC= $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ= $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
 DEF= \033[0m
 RED= \033[31;1m
 GRN= \033[32;1m
-YEL= \033[33;1m
 
 .PHONY: all clean fclean re
 
@@ -39,7 +38,7 @@ clean:
 	@echo "$(RED)[ft_select] : $(DEF)Cleaning                $(GRN)[OK]$(DEF)"
 
 fclean: clean
-	@make -C libft execlean
+	@make -C libft fclean
 	@rm -rf $(NAME)
 	@echo "$(RED)[ft_select] : $(DEF)Full Cleaning           $(GRN)[OK]$(DEF)"
 

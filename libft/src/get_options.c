@@ -6,12 +6,11 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 12:14:47 by mpivet-p          #+#    #+#             */
-/*   Updated: 2019/02/21 12:27:51 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2019/05/11 15:40:02 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
 t_opts	get_options(int argc, char **argv, char *allowed)
 {
