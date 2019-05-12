@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 18:35:42 by mpivet-p          #+#    #+#             */
-/*   Updated: 2019/05/11 15:49:47 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2019/05/12 17:37:16 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	sigwinch_handler(int signum)
 {
 	(void)signum;
 	signal(SIGWINCH, sigwinch_handler);
+	signal(SIGCONT, sigcont_handler);
 	disp_list(g_head, get_term_size() & 0xFFFF, get_maxlen(g_head));
 }
 
@@ -48,7 +49,6 @@ void	sigtstp_handler(int signum)
 	signal(SIGINT, SIG_DFL);
 	signal(SIGWINCH, SIG_DFL);
 	signal(SIGTSTP, SIG_DFL);
-	signal(SIGCONT, sigcont_handler);
 	tputs(tgetstr("ve", NULL), 0, ft_putscap);
 	tcsetattr(0, TCSANOW, &g_save);
 	ioctl(2, TIOCSTI, "\x1A");

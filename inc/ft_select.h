@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:58:25 by mpivet-p          #+#    #+#             */
-/*   Updated: 2019/05/11 15:45:32 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2019/05/12 17:37:40 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct		s_select
 	struct s_select	*prev;
 }					t_select;
 
+void				sigcont_handler(int signum);
 int					enough_space(int maxlen);
 void				sigtstp_handler(int signum);
 void				sigint_handler(int signum);
