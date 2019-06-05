@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 19:35:58 by mpivet-p          #+#    #+#             */
-/*   Updated: 2019/05/12 17:26:27 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2019/05/16 18:05:06 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int		term_init(void)
 	}
 	if (ret == -1 || ret == 0)
 		return (-1);
+	tputs(tgetstr("ks", NULL), 0, ft_putscap);
 	signal(SIGINT, sigint_handler);
 	signal(SIGTSTP, sigtstp_handler);
 	return (0);

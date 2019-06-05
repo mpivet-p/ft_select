@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 18:35:42 by mpivet-p          #+#    #+#             */
-/*   Updated: 2019/05/12 17:37:16 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2019/05/16 18:25:47 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	sigint_handler(int signum)
 	tcsetattr(0, TCSANOW, &g_save);
 	tputs(tgetstr("cl", NULL), 1, ft_putscap);
 	tputs(tgetstr("ve", NULL), 1, ft_putscap);
+	tputs(tgetstr("ke", NULL), 0, ft_putscap);
 	exit(1);
 }
 
@@ -39,7 +40,7 @@ void	sigcont_handler(int signum)
 	term_init();
 	init_keyboard(&g_save);
 	tputs(tgetstr("vi", NULL), 1, ft_putscap);
-	ft_putstr_fd("\033[?1049h\033[H", 2);
+	alternate_screen('o');
 	sigwinch_handler(SIGWINCH);
 }
 
@@ -52,5 +53,6 @@ void	sigtstp_handler(int signum)
 	tputs(tgetstr("ve", NULL), 0, ft_putscap);
 	tcsetattr(0, TCSANOW, &g_save);
 	ioctl(2, TIOCSTI, "\x1A");
-	ft_putstr_fd("\033[?1049l", 2);
+	tputs(tgetstr("ke", NULL), 0, ft_putscap);
+	alternate_screen('c');
 }

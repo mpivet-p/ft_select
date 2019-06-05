@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:59:38 by mpivet-p          #+#    #+#             */
-/*   Updated: 2019/05/11 15:49:34 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2019/05/16 18:25:11 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,13 @@ int		get_keystrokes(char *buffer, t_select **head, int *maxlen)
 		g_head = *head;
 		*maxlen = get_maxlen(*head);
 	}
-	else if (ft_strcmp("\x1B[A", buffer) == 0)
+	else if (ft_strcmp(tgetstr("ku", NULL), buffer) == 0)
 		move_up(ptr, *maxlen);
-	else if (ft_strcmp("\x1b[B", buffer) == 0)
+	else if (ft_strcmp(tgetstr("kd", NULL), buffer) == 0)
 		move_down(ptr, *maxlen);
-	else if (ft_strcmp("\x1b[D", buffer) == 0)
+	else if (ft_strcmp(tgetstr("kl", NULL), buffer) == 0)
 		move_left(ptr);
-	else if (ft_strcmp("\x1b[C", buffer) == 0)
+	else if (ft_strcmp(tgetstr("kr", NULL), buffer) == 0)
 		move_right(ptr);
 	else
 		return (2);
@@ -109,7 +109,7 @@ int		main(int argc, char **argv)
 			|| !(head = create_list(argv)))
 		return (0);
 	tputs(tgetstr("vi", NULL), 1, ft_putscap);
-	ft_putstr_fd("\033[?1049h\033[H", 2);
+	alternate_screen('o');
 	g_head = head;
 	sigwinch_handler(SIGWINCH);
 	ret = read_loop(&head);
@@ -118,7 +118,7 @@ int		main(int argc, char **argv)
 	if (ret == 1)
 		print_result(head);
 	head = del_list(head);
+	alternate_screen('c');
 	tcsetattr(0, TCSANOW, &g_save);
-	ft_putstr_fd("\033[?1049l", 2);
 	return (0);
 }

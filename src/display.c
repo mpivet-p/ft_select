@@ -6,7 +6,7 @@
 /*   By: mpivet-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 16:34:46 by mpivet-p          #+#    #+#             */
-/*   Updated: 2019/05/10 19:45:04 by mpivet-p         ###   ########.fr       */
+/*   Updated: 2019/05/16 18:24:30 by mpivet-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,20 @@ int		get_maxlen(t_select *ptr)
 		ptr = ptr->next;
 	}
 	return (size);
+}
+
+void	alternate_screen(int action)
+{
+	char *ptr;
+
+	if ((ptr = getenv("TERM")) != NULL
+			&& ft_strcmp(ptr, "xterm-256color") == 0)
+	{
+		if (action == 'o')
+			ft_putstr_fd("\033[?1049h\033[H", 2);
+		else
+			ft_putstr_fd("\033[?1049l", 2);
+	}
 }
 
 void	disp_list(t_select *ptr, int width, int maxlen)
